@@ -40,8 +40,8 @@ build/main_test.o: test/main.c thirdparty/ctest.h src/board.h src/input.h
 	$(CXX) $(CFLAGS) -I thirdparty -I src -c test/main.c -o build/main_test.o
 
 build:
-	mkdir  build
+	mkdir  build -p
 bin:
-	mkdir  bin 
+	mkdir  bin -p
 clean:
 	-rm -rf build bin
