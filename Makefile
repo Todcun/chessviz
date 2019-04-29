@@ -1,19 +1,28 @@
-CXX=gcc
+#CXX это переменная, содержащая команду компилятора для вызова
+CXX=gcc 
+#CFLAGS является переменной окруженя, которая используюется для указания системе сборки параметров компилятора при сборке кода
 CFLAGS = -c -Wall -Werror -std=c99
+#Передаем флаг компилятору на стандарт C99
 FLAGS  =  -Wall -Werror -std=c99
+#Создаем объектные файлы
 OBJECTS = build/main.o build/board.o build/board_print_plain.o build/board_print.o build/input.o 
 
 OB = build/main_test.o build/board.o build/board_print_plain.o build/board_print.o build/input.o 
 
+#PHONY нужен для корректной работы clean
 .PHONY: clean all bin build default test
 
+#если вызывается, строим все файлы, которые необходимы для работы проги
 all: bin build default test
 
+#Наш главный файл
 default: bin/prog
 
+#Файл для тестирования
 test: bin/prog_test
 	bin/prog_test
 
+#Собираем наши объектники
 bin/prog: $(OBJECTS)
 	$(CXX) $(FLAGS) $(OBJECTS) -o bin/prog
 
@@ -39,9 +48,11 @@ bin/prog_test: $(OB)
 build/main_test.o: test/main.c thirdparty/ctest.h src/board.h src/input.h 
 	$(CXX) $(CFLAGS) -I thirdparty -I src -c test/main.c -o build/main_test.o
 
+#Создание директорий
 build:
-	mkdir  build -p
+	mkdir -p build
 bin:
-	mkdir  bin -p
+	mkdir -p bin 
 clean:
 	-rm -rf build bin
+
